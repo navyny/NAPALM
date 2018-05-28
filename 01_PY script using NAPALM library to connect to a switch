@@ -1,0 +1,30 @@
+from napalm import get_network_driver 
+driver = get_network_driver('ios')                           #From documentation network drivers can be: ios,junos, eos, iosxr   [https://napalm.readthedocs.io/en/latest/support/index.html]
+switch1 = driver ('192.168.10.22', 'naveen', 'cisco')
+switch1.open() 
+
+ios_output = switch1.get_facts()                               #get_facts() is one of the functions available in NAPALM. For otehr functions look@support matrix in [https://napalm.readthedocs.io/en/latest/support/index.html]
+print (ios_output)
+
+switch1.close()
+
+The output is a bunch of text not in a very human readable format. To display this in a human readable format....we need to use JSON.
+To the above script Add:
+
+import json
+:
+:
+ios_output = switch1.get_facts()   
+print (json.dumps(ios_output, indent=4 )
+
+ios_output = switch1.get_interfaces()   
+print (json.dumps(ios_output, sort_keys=true, indent=4 )    # sort_keys=True  will arrange the output in serial order...like 0/0, 0.1, 0.2....
+
+ios_output = switch1.get_interfaces_counters()   
+print (json.dumps(ios_output, sort_keys=true, indent=4 )
+
+ios_output = switch1.get_mac_address_table()   
+print (json.dumps(ios_output, sort_keys=true, indent=4 )
+
+ios_output = switch1.get_mac_arp_table()   
+print (json.dumps(ios_output, sort_keys=true, indent=4 )
