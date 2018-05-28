@@ -1,0 +1,11 @@
+
+import jason
+from napalm import get_network_driver 
+driver = get_network_driver('ios')                           #From documentation network drivers can be: ios,junos, eos, iosxr   [https://napalm.readthedocs.io/en/latest/support/index.html]
+switch1 = driver ('192.168.10.22', 'naveen', 'cisco')
+switch1.open() 
+
+bgp_nei = switch1.get_bgp_neighbors()                               #get_facts() is one of the functions available in NAPALM. For otehr functions look@support matrix in [https://napalm.readthedocs.io/en/latest/support/index.html]
+print (json.dumps(bgp_nei, sort_keys=true, indent = 4))
+
+switch1.close()
