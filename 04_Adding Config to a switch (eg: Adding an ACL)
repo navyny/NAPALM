@@ -1,0 +1,13 @@
+First save the config required to be added to a .cfg file (eg: ACL.cfg)
+
+
+import json
+from naplam import get_network_driver
+driver = get_network_driver('ios')
+switch1 = driver('192.168.1.22' , 'naveen', 'cisco')
+switch1.open()
+
+print ('Accessing 192.168.1.22')
+switch1.load_merge_candidate(filename='ACL.cfg')                        # create a text file named "ACL.cfg" with the access-list
+switch1.commit_config()                                                 # will commit the config
+switch1.close()
