@@ -1,0 +1,19 @@
+#If the config(in ACL.cfg) is already present the script will not make any changes
+
+import json
+from naplam import get_network_driver
+driver = get_network_driver('ios')
+switch1 = driver('192.168.1.22' , 'naveen', 'cisco')
+switch1.open()
+
+print ('Accessing 192.168.1.22')
+switch1.load_merge_candidate(filename='ACL.cfg')                        # create a text file named "ACL.cfg" wit h the access-list
+diffs = switch1.compare_config()
+if len(diffs) > 0:
+    print(diffs)
+    switch1.commit_config()                                                                 #will commit the config only if there are any changes
+else:
+    print ("No changes required")
+    switch1.discard_config()
+
+switch1.close()
